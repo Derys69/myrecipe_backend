@@ -1,0 +1,13 @@
+USE myrecipe;
+
+DELETE FROM ratings;
+DELETE FROM favorites;
+DELETE FROM recipes;
+DELETE FROM categories;
+DELETE FROM users;
+
+ALTER TABLE ratings AUTO_INCREMENT = 1;
+ALTER TABLE favorites AUTO_INCREMENT = 1;
+ALTER TABLE recipes AUTO_INCREMENT = 1;
+ALTER TABLE categories AUTO_INCREMENT = 1;
+ALTER TABLE users AUTO_INCREMENT = 1;
