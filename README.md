@@ -51,6 +51,10 @@ Progress aplikasi sementara ini adalah pada bagian backend .
 ## 📂 Struktur Backend
 
 Struktur proyek diatur berdasarkan peran dan tanggung jawab setiap direktori.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f5114a2c-4029-4a8a-b671-8c910c3b7d62" alt="Struktur diagram backend" width="650"/>
+</p>
+
 
 | Direktori/File | Deskripsi |
 | :--- | :--- |
@@ -79,12 +83,3 @@ Struktur proyek diatur berdasarkan peran dan tanggung jawab setiap direktori.
 
 ***
 
-## 🗺️ Progress & Arsitektur
-
-Berikut adalah diagram yang menunjukkan arsitektur dan modul utama dari proyek backend ini.
-
-**Struktur Backend (Diagram)**
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f5114a2c-4029-4a8a-b671-8c910c3b7d62" alt="Struktur diagram backend" width="650"/>
-</p>
