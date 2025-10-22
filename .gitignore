@@ -1,0 +1,26 @@
+# Backend Go
+/backend/server.log
+/backend/.env
+/backend/cmd/.env
+/backend/bin/
+/backend/build/
+/backend/coverage/
+
+# Flutter frontend
+/frontend_flutter/.dart_tool/
+/frontend_flutter/.idea/
+/frontend_flutter/.metadata
+/frontend_flutter/build/
+/frontend_flutter/ios/
+/frontend_flutter/android/
+/frontend_flutter/linux/
+/frontend_flutter/macos/
+/frontend_flutter/windows/
+/frontend_flutter/*.iml
+/frontend_flutter/pubspec.lock
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log

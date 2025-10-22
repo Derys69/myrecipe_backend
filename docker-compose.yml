@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: myrecipe-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=yourpassword
+      - MYSQL_DATABASE=myrecipe
+      - MYSQL_USER=myrecipe
+      - MYSQL_PASSWORD=myrecipe
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -pyourpassword || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: myrecipe-backend
+    environment:
+      - DB_USER=root
+      - DB_PASSWORD=yourpassword
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=myrecipe
+      - JWT_SECRET=supersecretkey
+      - PORT=8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+

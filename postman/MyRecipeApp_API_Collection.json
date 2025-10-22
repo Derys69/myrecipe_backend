@@ -1,0 +1,170 @@
+{
+  "info": {
+    "name": "MyRecipeApp API",
+    "_postman_id": "a5efb2b3-2e12-4a9c-b0c5-9e4a1f0ff001",
+    "description": "Postman API Collection untuk MyRecipeApp (Golang Backend)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user1@mail.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user1@mail.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Recipes",
+      "item": [
+        {
+          "name": "Get All Recipes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/recipes/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["recipes", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Recipes by Ingredient",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/recipes/search?ingredient=telur",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["recipes", "search"],
+              "query": [{ "key": "ingredient", "value": "telur" }]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recipe by ID (Optional)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/recipes/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["recipes", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Favorites",
+      "item": [
+        {
+          "name": "Toggle Favorite (Add / Remove)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": 1,\n    \"recipe_id\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/favorites/toggle",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["favorites", "toggle"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Favorites (Optional)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/favorites/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["favorites", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories (Optional)",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/categories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["categories"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

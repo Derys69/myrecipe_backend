@@ -1,0 +1,4 @@
+# sensitive files
+.env
+*.sql
+*.json
