@@ -1,259 +1,171 @@
-# 🧑‍🍳 MyRecipeApp - Full Stack Recipe Management Application
+# 🧑‍🍳 MyRecipeApp - Aplikasi Resep Masakan
 
-A comprehensive recipe management application built with **Go backend** and **Flutter frontend**, featuring user authentication, recipe management, favorites system, and admin panel.
+Aplikasi untuk mengelola resep masakan yang terdiri dari **aplikasi mobile** (Flutter) dan **server backend** (Go). Aplikasi ini memungkinkan pengguna untuk melihat resep, mencari berdasarkan bahan, dan menyimpan resep favorit.
 
-## 📋 Table of Contents
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Quick Start](#-quick-start)
-- [API Documentation](#-api-documentation)
-- [Testing Reports](#-testing-reports)
-- [Development](#-development)
+## 🎯 Apa yang Bisa Dilakukan?
 
-## ✨ Features
+### Untuk Pengguna Biasa:
+- 📱 **Lihat Resep** - Daftar semua resep masakan
+- 🔍 **Cari Resep** - Cari resep berdasarkan bahan yang ada
+- ❤️ **Simpan Favorit** - Tandai resep yang disukai
+- 🔐 **Login/Register** - Buat akun dan masuk ke aplikasi
 
-### Backend (Go + MySQL)
-- 🔐 **JWT Authentication** - Secure user registration and login
-- 📝 **Recipe Management** - CRUD operations for recipes
-- 🔍 **Search Functionality** - Search recipes by ingredients
-- ❤️ **Favorites System** - Add/remove recipes from favorites
-- 👨‍💼 **Admin Panel** - Admin-only recipe creation
-- 🗄️ **Database** - MySQL with proper relationships
+### Untuk Admin:
+- ➕ **Tambah Resep** - Tambahkan resep baru ke database
+- 👥 **Kelola User** - Lihat daftar pengguna
 
-### Frontend (Flutter)
-- 📱 **Cross-platform** - Runs on mobile, web, and desktop
-- 🎨 **Material Design** - Modern UI with light/dark themes
-- 🔄 **State Management** - Provider pattern for reactive UI
-- 🌐 **API Integration** - Seamless backend communication
-- 💾 **Session Management** - Persistent login with SharedPreferences
-- 🧭 **Navigation** - Go Router for smooth page transitions
+## 🛠 Teknologi yang Digunakan
 
-## 🛠 Tech Stack
+| Bagian | Teknologi | Fungsi |
+|--------|-----------|--------|
+| **Aplikasi Mobile** | Flutter | Tampilan aplikasi di HP/komputer |
+| **Server** | Go | Mengolah data dan API |
+| **Database** | MySQL | Menyimpan data resep dan user |
+| **Deployment** | Docker | Cara menjalankan aplikasi |
 
-| Component | Technology |
-|-----------|------------|
-| **Backend** | Go 1.24, GORM, JWT |
-| **Database** | MySQL 8.0 |
-| **Frontend** | Flutter 3.9+, Provider, Go Router |
-| **Deployment** | Docker, Docker Compose |
-| **Testing** | curl, Postman Collection |
-
-## 📁 Project Structure
+## 📁 Struktur Proyek
 
 ```
 myrecipeapp/
-├── backend/                 # Go REST API
-│   ├── cmd/main.go         # Application entry point
-│   ├── internal/           # Internal packages
-│   │   ├── handlers/       # HTTP handlers
-│   │   ├── models/         # Data models
-│   │   ├── routes/         # API routes
-│   │   ├── middleware/     # Auth middleware
-│   │   └── config/         # Configuration
-│   └── pkg/database/       # Database connection
-├── frontend_flutter/        # Flutter mobile app
-│   ├── lib/
-│   │   ├── src/
-│   │   │   ├── pages/      # UI pages
-│   │   │   ├── api_client.dart # HTTP client
-│   │   │   └── session.dart    # Session management
-│   │   └── main.dart       # App entry point
-├── db/                     # Database schema & data
-│   ├── myrecipe.sql       # Database schema
-│   └── query_dummy.sql    # Sample data
-├── postman/               # API testing collection
-├── docker-compose.yml     # Container orchestration
-└── README.md             # This file
+├── backend/              # Server aplikasi (Go)
+├── frontend_flutter/     # Aplikasi mobile (Flutter)  
+├── db/                   # Database dan data contoh
+├── postman/              # File untuk testing API
+└── README.md            # File ini
 ```
 
-## 🚀 Quick Start
+## 🚀 Cara Menjalankan Aplikasi
 
-### Prerequisites
-- Docker & Docker Compose
-- Go 1.21+ (for local development)
-- Flutter 3.9+ (for frontend development)
-- MySQL 8+ (for local development)
+### Cara Mudah (Pakai Docker)
 
-### Option A: Docker (Recommended)
-
-1. **Clone and navigate to project:**
+1. **Pastikan Docker sudah terinstall**
+2. **Buka terminal dan ketik:**
    ```bash
    cd /path/to/myrecipeapp
-   ```
-
-2. **Start services:**
-   ```bash
    docker compose up -d --build
    ```
+3. **Tunggu sampai selesai, lalu buka:**
+   - **API Server:** http://localhost:8081
+   - **Database:** localhost:3306
 
-3. **Services running:**
-   - **Backend API:** http://localhost:8081
-   - **MySQL Database:** localhost:3306
-   - **Database:** `myrecipe` (auto-created with sample data)
+### Cara Manual (Tanpa Docker)
 
-4. **Test the API:**
-   ```bash
-   curl -sS http://localhost:8081/recipes/ | jq
-   ```
+1. **Setup Database MySQL:**
+   - Buat database baru bernama `myrecipe`
+   - Import file `db/myrecipe.sql` dan `db/query_dummy.sql`
 
-### Option B: Local Development
-
-1. **Setup Database:**
-   ```bash
-   mysql -u root -p < db/myrecipe.sql
-   mysql -u root -p myrecipe < db/query_dummy.sql
-   ```
-
-2. **Configure Environment:**
-   ```bash
-   cp db/.env.example backend/.env
-   # Edit backend/.env with your database credentials
-   ```
-
-3. **Run Backend:**
+2. **Jalankan Server:**
    ```bash
    cd backend
    go run cmd/main.go
    ```
 
-4. **Run Frontend:**
+3. **Jalankan Aplikasi Mobile:**
    ```bash
    cd frontend_flutter
    flutter pub get
    flutter run
    ```
 
-## 📚 API Documentation
+## 📱 Cara Menggunakan API
 
-### Authentication Endpoints
+### Login User
 ```bash
-# Register new user
-curl -X POST http://localhost:8081/auth/register \
-  -H 'Content-Type: application/json' \
-  -d '{"email":"user@example.com","password":"password123"}'
-
-# Login user
 curl -X POST http://localhost:8081/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"email":"user@example.com","password":"password123"}'
+  -d '{"email":"user1@mail.com","password":"12345"}'
 ```
 
-### Recipe Endpoints
+### Lihat Semua Resep
 ```bash
-# Get all recipes
 curl http://localhost:8081/recipes/
+```
 
-# Search recipes by ingredient
+### Cari Resep Berdasarkan Bahan
+```bash
 curl 'http://localhost:8081/recipes/search?ingredient=telur'
+```
 
-# Toggle favorite (requires JWT token)
+### Tambah ke Favorit
+```bash
 curl -X POST http://localhost:8081/favorites/toggle \
   -H 'Content-Type: application/json' \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: Bearer TOKEN_ANDA" \
   -d '{"user_id":1,"recipe_id":2}'
 ```
 
-### Admin Endpoints
-```bash
-# Create recipe (admin only)
-curl -X POST http://localhost:8081/admin/recipes \
-  -H 'Content-Type: application/json' \
-  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
-  -d '{"title":"New Recipe","description":"Recipe description","ingredients":"ingredient1,ingredient2","steps":"step1,step2","category_id":1}'
-```
+## 📊 Hasil Testing
 
-**📋 Complete API Collection:** Import `postman/MyRecipeApp_API_Collection.json` into Postman for full API testing.
+### 📄 Laporan yang Tersedia
+- **`LAPORAN_PENGUJIAN_LENGKAP_ALP.pdf`** - Laporan lengkap testing
+- **`ALP_Laporan.pdf`** - Laporan sederhana dengan link GitHub
 
-## 📊 Testing Reports
+### ✅ Fitur yang Sudah Bekerja
+- ✅ Login dan register user
+- ✅ Lihat daftar resep
+- ✅ Cari resep berdasarkan bahan
+- ✅ Simpan/hapus dari favorit
+- ✅ Admin bisa tambah resep
+- ✅ Aplikasi mobile dengan UI yang bagus
+- ✅ Penyimpanan session login
 
-### 📄 Available Reports
-- **`LAPORAN_PENGUJIAN_LENGKAP_ALP.pdf`** - Comprehensive testing report (Backend + Frontend)
-- **`ALP_Laporan.pdf`** - Simple progress report with GitHub link
+### ❌ Fitur yang Belum Selesai
+- ❌ Halaman detail resep per ID
+- ❌ Daftar kategori resep
+- ❌ Lihat daftar favorit user
 
-### 🧪 Test Results Summary
-| Component | Test Cases | Passed | Success Rate |
-|-----------|------------|--------|--------------|
-| Backend API | 8 | 6 | 75% |
-| Frontend UI | 10 | 10 | 100% |
+### 📈 Statistik Testing
+| Komponen | Jumlah Test | Berhasil | Persentase |
+|----------|-------------|----------|------------|
+| Server API | 8 | 6 | 75% |
+| Aplikasi Mobile | 10 | 10 | 100% |
 | Database | 3 | 3 | 100% |
-| Integration | 5 | 4 | 80% |
-| **TOTAL** | **26** | **23** | **88%** |
+| **TOTAL** | **21** | **19** | **90%** |
 
-### ✅ Working Features
-- ✅ User authentication (register/login)
-- ✅ Recipe listing and search
-- ✅ Favorites management
-- ✅ Admin recipe creation
-- ✅ Flutter UI with state management
-- ✅ API integration
-- ✅ Session persistence
+## 🔧 Untuk Developer
 
-### ⚠️ Known Issues
-- ❌ Recipe detail endpoint (`/recipes/{id}`) - Not implemented
-- ❌ Categories endpoint (`/categories`) - Not implemented  
-- ❌ User favorites list (`/favorites/{user_id}`) - Not implemented
-- ⚠️ Authentication middleware inconsistency on favorites
-
-## 🔧 Development
-
-### Backend Development
+### Menjalankan Server
 ```bash
 cd backend
-go mod tidy
 go run cmd/main.go
 ```
 
-### Frontend Development
+### Menjalankan Aplikasi Mobile
 ```bash
 cd frontend_flutter
 flutter pub get
 flutter run
 ```
 
-### Database Management
+### Cek Database
 ```bash
-# Connect to MySQL container
 docker exec -it myrecipe-mysql mysql -uroot -pyourpassword
-
-# View tables
-SHOW TABLES FROM myrecipe;
-
-# Check data
-SELECT * FROM myrecipe.recipes LIMIT 5;
 ```
 
-### Logs and Debugging
+### Lihat Log Aplikasi
 ```bash
-# Backend logs
 docker logs -f myrecipe-backend
-
-# Database logs  
-docker logs -f myrecipe-mysql
-
-# Check service status
-docker compose ps
 ```
 
-## 🌐 GitHub Repository
+## 🌐 Link GitHub
 **Repository:** https://github.com/Derys69/myrecipe_backend
 
-## 📝 Notes
-- Default admin credentials: `admin@mail.com` / `admin123`
-- Sample user credentials: `user1@mail.com` / `12345`
-- Database automatically initializes with sample data on first run
-- All sensitive data (passwords, tokens) should be configured via environment variables
+## 📝 Informasi Penting
+- **Akun Admin:** `admin@mail.com` / `admin123`
+- **Akun User Contoh:** `user1@mail.com` / `12345`
+- Database otomatis terisi data contoh saat pertama kali dijalankan
+- Semua password dan token disimpan dengan aman
 
-## 🤝 Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+## 🤝 Cara Berkontribusi
+1. Fork repository ini
+2. Buat branch baru untuk fitur
+3. Lakukan perubahan
+4. Test dengan baik
+5. Kirim pull request
 
 ---
 
-**Built with ❤️ for ALP (Applied Learning Project) - Modul 4**
+**Dibuat untuk ALP (Applied Learning Project) - Modul 4** ❤️
 
 ### Opsi A: Jalankan dengan Docker (Direkomendasikan)
 
