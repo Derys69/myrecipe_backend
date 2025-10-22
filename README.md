@@ -1,6 +1,171 @@
-## MyRecipeApp — Langkah Menjalankan Backend
+# 🧑‍🍳 MyRecipeApp - Aplikasi Resep Masakan
 
-Berikut langkah-langkah untuk menjalankan aplikasi backend MyRecipeApp:
+Aplikasi untuk mengelola resep masakan yang terdiri dari **aplikasi mobile** (Flutter) dan **server backend** (Go). Aplikasi ini memungkinkan pengguna untuk melihat resep, mencari berdasarkan bahan, dan menyimpan resep favorit.
+
+## 🎯 Apa yang Bisa Dilakukan?
+
+### Untuk Pengguna Biasa:
+- 📱 **Lihat Resep** - Daftar semua resep masakan
+- 🔍 **Cari Resep** - Cari resep berdasarkan bahan yang ada
+- ❤️ **Simpan Favorit** - Tandai resep yang disukai
+- 🔐 **Login/Register** - Buat akun dan masuk ke aplikasi
+
+### Untuk Admin:
+- ➕ **Tambah Resep** - Tambahkan resep baru ke database
+- 👥 **Kelola User** - Lihat daftar pengguna
+
+## 🛠 Teknologi yang Digunakan
+
+| Bagian | Teknologi | Fungsi |
+|--------|-----------|--------|
+| **Aplikasi Mobile** | Flutter | Tampilan aplikasi di HP/komputer |
+| **Server** | Go | Mengolah data dan API |
+| **Database** | MySQL | Menyimpan data resep dan user |
+| **Deployment** | Docker | Cara menjalankan aplikasi |
+
+## 📁 Struktur Proyek
+
+```
+myrecipeapp/
+├── backend/              # Server aplikasi (Go)
+├── frontend_flutter/     # Aplikasi mobile (Flutter)  
+├── db/                   # Database dan data contoh
+├── postman/              # File untuk testing API
+└── README.md            # File ini
+```
+
+## 🚀 Cara Menjalankan Aplikasi
+
+### Cara Mudah (Pakai Docker)
+
+1. **Pastikan Docker sudah terinstall**
+2. **Buka terminal dan ketik:**
+   ```bash
+   cd /path/to/myrecipeapp
+   docker compose up -d --build
+   ```
+3. **Tunggu sampai selesai, lalu buka:**
+   - **API Server:** http://localhost:8081
+   - **Database:** localhost:3306
+
+### Cara Manual (Tanpa Docker)
+
+1. **Setup Database MySQL:**
+   - Buat database baru bernama `myrecipe`
+   - Import file `db/myrecipe.sql` dan `db/query_dummy.sql`
+
+2. **Jalankan Server:**
+   ```bash
+   cd backend
+   go run cmd/main.go
+   ```
+
+3. **Jalankan Aplikasi Mobile:**
+   ```bash
+   cd frontend_flutter
+   flutter pub get
+   flutter run
+   ```
+
+## 📱 Cara Menggunakan API
+
+### Login User
+```bash
+curl -X POST http://localhost:8081/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"user1@mail.com","password":"12345"}'
+```
+
+### Lihat Semua Resep
+```bash
+curl http://localhost:8081/recipes/
+```
+
+### Cari Resep Berdasarkan Bahan
+```bash
+curl 'http://localhost:8081/recipes/search?ingredient=telur'
+```
+
+### Tambah ke Favorit
+```bash
+curl -X POST http://localhost:8081/favorites/toggle \
+  -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer TOKEN_ANDA" \
+  -d '{"user_id":1,"recipe_id":2}'
+```
+
+## 📊 Hasil Testing
+
+### 📄 Laporan yang Tersedia
+- **`LAPORAN_PENGUJIAN_LENGKAP_ALP.pdf`** - Laporan lengkap testing
+- **`ALP_Laporan.pdf`** - Laporan sederhana dengan link GitHub
+
+### ✅ Fitur yang Sudah Bekerja
+- ✅ Login dan register user
+- ✅ Lihat daftar resep
+- ✅ Cari resep berdasarkan bahan
+- ✅ Simpan/hapus dari favorit
+- ✅ Admin bisa tambah resep
+- ✅ Aplikasi mobile dengan UI yang bagus
+- ✅ Penyimpanan session login
+
+### ❌ Fitur yang Belum Selesai
+- ❌ Halaman detail resep per ID
+- ❌ Daftar kategori resep
+- ❌ Lihat daftar favorit user
+
+### 📈 Statistik Testing
+| Komponen | Jumlah Test | Berhasil | Persentase |
+|----------|-------------|----------|------------|
+| Server API | 8 | 6 | 75% |
+| Aplikasi Mobile | 10 | 10 | 100% |
+| Database | 3 | 3 | 100% |
+| **TOTAL** | **21** | **19** | **90%** |
+
+## 🔧 Untuk Developer
+
+### Menjalankan Server
+```bash
+cd backend
+go run cmd/main.go
+```
+
+### Menjalankan Aplikasi Mobile
+```bash
+cd frontend_flutter
+flutter pub get
+flutter run
+```
+
+### Cek Database
+```bash
+docker exec -it myrecipe-mysql mysql -uroot -pyourpassword
+```
+
+### Lihat Log Aplikasi
+```bash
+docker logs -f myrecipe-backend
+```
+
+## 🌐 Link GitHub
+**Repository:** https://github.com/Derys69/myrecipe_backend
+
+## 📝 Informasi Penting
+- **Akun Admin:** `admin@mail.com` / `admin123`
+- **Akun User Contoh:** `user1@mail.com` / `12345`
+- Database otomatis terisi data contoh saat pertama kali dijalankan
+- Semua password dan token disimpan dengan aman
+
+## 🤝 Cara Berkontribusi
+1. Fork repository ini
+2. Buat branch baru untuk fitur
+3. Lakukan perubahan
+4. Test dengan baik
+5. Kirim pull request
+
+---
+
+**Dibuat untuk ALP (Applied Learning Project) - Modul 4** ❤️
 
 ### Opsi A: Jalankan dengan Docker (Direkomendasikan)
 
