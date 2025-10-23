@@ -148,7 +148,7 @@ docker logs -f myrecipe-backend
 ```
 
 ## 🌐 Link GitHub
-**Repository:** https://github.com/Derys69/myrecipe_backend
+**Repository:** https://github.com/Derys69/myrecipe
 
 ## 📝 Informasi Penting
 - **Akun Admin:** `admin@mail.com` / `admin123`
