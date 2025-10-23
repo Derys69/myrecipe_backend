@@ -209,13 +209,13 @@ Jika semua konfigurasi benar, log akan menampilkan:
    Server running on port 8080
 
 ### Struktur Proyek (ringkas)
-
+```
 myrecipeapp/
   backend/        # Go source (cmd/main.go, internal/*, pkg/database/*)
   db/             # SQL schema dan data dummy
   postman/        # Koleksi Postman
   docker-compose.yml
-
+```
 ### Contoh Pengujian dengan curl (Docker, port 8081)
 
 # Recipes
